@@ -1,0 +1,71 @@
+/* Readable dashboard details, with content-sized rows on every viewport. */
+.app-shell { --detail-ink: #65596d; }
+.app-shell.dark-mode { --detail-ink: #c5b9cb; }
+.dashboard-grid { align-items: start; }
+.dashboard-grid .performance-panel { grid-row: auto; min-height: 0; }
+.dashboard-grid .attendance-panel, .dashboard-grid .alerts-panel { min-height: 0; }
+.dashboard-grid .panel { min-width: 0; }
+.dashboard-grid .panel-heading { flex-wrap: wrap; }
+.dashboard-grid .performance-body { margin: 20px 0; }
+.dashboard-grid .performance-copy strong { font: 700 14px var(--font-ui); }
+.dashboard-grid .performance-copy p { max-width: none; }
+.schedule-item { padding: 12px 0; align-items: flex-start; }
+.schedule-item time { width: auto; flex: 0 0 92px; font-size: 12px; line-height: 1.6; }
+.schedule-item time span { display: block; white-space: nowrap; }
+.schedule-item .event-line { align-self: stretch; min-height: 34px; }
+.schedule-item div { min-width: 0; overflow-wrap: anywhere; }
+.schedule-item strong, .alert-item strong { font-size: 13px; }
+.schedule-item p, .performance-copy p, .legend span,
+.attendance-stat small, .alert-item p, .next-event span,
+.metric-info > span, .metric-info small,
+.chart-labels, .chart-months, .bar-row, .bar-row b {
+  color: var(--detail-ink); font-size: 12px; line-height: 1.5;
+}
+.chart-labels { height: 149px; }
+.chart-months { gap: 8px; }
+.chart-area { min-width: 0; height: 180px; }
+.attendance-stat { flex-wrap: wrap; }
+.attendance-stat small { flex-basis: 100%; }
+.bar-row { grid-template-columns: minmax(80px, 1fr) 2fr 45px; margin-top: 10px; }
+.alert-item { text-align: left; background: transparent; padding: 10px 7px; }
+.next-event strong { font-size: 13px; }
+.metric-info { min-width: 0; }
+.metric-info small { display: block; }
+.eyebrow, .welcome-row > div > p:last-child,
+.table-toolbar p, .section-copy, .empty-state { color: var(--detail-ink); font-size: 12px; }
+.table-scroll table { font-size: 12px; }
+.table-scroll th, .person-cell span { color: var(--detail-ink); font-size: 11px; }
+.person-cell strong { font-size: 12px; }
+.table-toolbar, .toolbar-actions { flex-wrap: wrap; }
+.toolbar-actions > * { max-width: 100%; }
+.live-create-form > * { min-width: 0; }
+.settings-layout > * { min-width: 0; }
+.settings-content .table-scroll { position: relative; max-width: 100%; }
+.live-create-form select, .live-create-form textarea {
+  width: 100%; padding: 9px; border: 1px solid var(--line); border-radius: 6px;
+  color: var(--detail-ink); background: transparent; font: 12px var(--font-ui);
+}
+button:focus-visible { outline: 2px solid #9c36b5; outline-offset: 3px; }
+@media (min-width: 821px) {
+  .sidebar { position: sticky; top: 0; height: 100vh; min-height: 0; overflow-y: auto; align-self: flex-start; }
+}
+@media (max-width: 820px) {
+  .sidebar { overflow-y: auto; }
+  .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
+  .attendance-actions { flex-wrap: wrap; max-width: 100%; }
+  .attendance-actions > * { min-width: 0; max-width: 100%; }
+  .calendar-layout, .calendar-grid, .month-cell { min-width: 0; }
+  .calendar-layout { grid-template-columns: minmax(0, 1fr); }
+  .settings-layout { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .performance-body { flex-wrap: wrap; }
+  .performance-copy { flex: 1 1 180px; }
+  .metric-info > span { font-size: 12px; }
+  .metric-card { flex-wrap: wrap; }
+  .metric-info { flex: 1 1 100px; }
+  .chart-months { font-size: 10px; }
+  .schedule-item { gap: 8px; }
+  .schedule-item time { flex-basis: 88px; }
+  .toolbar-actions { width: 100%; }
+}

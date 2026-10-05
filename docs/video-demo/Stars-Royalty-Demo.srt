@@ -1,0 +1,87 @@
+1
+00:00:00,600 --> 00:00:09,055
+Bienvenidos a Stars Royalty, la plataforma integral para la administración deportiva de la academia.
+
+2
+00:00:09,055 --> 00:00:20,300
+En un solo lugar, el equipo puede gestionar atletas, equipos, finanzas, competencias, inventario, comunicación y atención a familias.
+
+3
+00:00:22,300 --> 00:00:36,915
+Al iniciar sesión, el Resumen muestra los indicadores que requieren atención: atletas activos, cobranza del periodo, asistencia, próximos eventos, rendimiento y alertas operativas.
+
+4
+00:00:36,915 --> 00:00:42,680
+La información se obtiene directamente de los registros de la academia.
+
+5
+00:00:44,680 --> 00:00:48,763
+En Atletas se encuentra el expediente integral.
+
+6
+00:00:48,763 --> 00:01:03,183
+Cada perfil reúne fotografía, datos de contacto, equipo, historial médico, asistencias, evaluaciones por rúbrica, metas, documentos, pagos y credencial institucional.
+
+7
+00:01:03,183 --> 00:01:10,220
+Esto permite acompañar el desarrollo deportivo con información ordenada y segura.
+
+8
+00:01:12,220 --> 00:01:18,439
+Las áreas de Disciplinas, Categorías y Equipos permiten estructurar la temporada.
+
+9
+00:01:18,439 --> 00:01:27,498
+Los entrenadores pueden formar plantillas, asignar atletas y llevar el control de asistencia y rendimiento por equipo.
+
+10
+00:01:27,498 --> 00:01:33,410
+Las rúbricas estandarizan la evaluación técnica para Cheerleading y Gimnasia.
+
+11
+00:01:35,410 --> 00:01:43,514
+El Calendario centraliza entrenamientos, evaluaciones, reuniones, exhibiciones y competencias.
+
+12
+00:01:43,514 --> 00:01:49,463
+Cada evento puede crearse, editarse o eliminarse de forma controlada.
+
+13
+00:01:49,463 --> 00:01:59,550
+En Competencias se administran convocatorias de equipos, checklist logístico, resultados y comunicación con familias.
+
+14
+00:02:01,550 --> 00:02:06,081
+Cobranza registra cargos, pagos, egresos y recibos.
+
+15
+00:02:06,081 --> 00:02:14,964
+El flujo de caja distingue claramente entre dinero cobrado, gastos del periodo y cuentas pendientes.
+
+16
+00:02:14,964 --> 00:02:22,427
+Inventario permite administrar productos, existencias, entradas de almacén y ventas.
+
+17
+00:02:22,427 --> 00:02:28,290
+Vestuario vincula asignaciones de uniformes con atletas y equipos.
+
+18
+00:02:30,290 --> 00:02:40,244
+Las familias cuentan con un portal para consultar actividades, pagos, asistencias, documentos, credenciales y mensajes.
+
+19
+00:02:40,244 --> 00:02:50,950
+La academia puede emitir credenciales con QR y generar reportes listos para impresión o PDF, sin contenido extra de la pantalla.
+
+20
+00:02:52,950 --> 00:03:03,566
+Finalmente, Configuración permite administrar usuarios, roles, fotos de perfil, sedes, salones, rúbricas y privacidad.
+
+21
+00:03:03,566 --> 00:03:15,441
+Stars Royalty conecta cada área de la academia para trabajar con orden, visibilidad y una atención profesional a atletas y familias.
+
+22
+00:03:15,441 --> 00:03:17,690
+Gracias por acompañarnos.

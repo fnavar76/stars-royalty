@@ -1,0 +1,81 @@
+[
+  {
+    "titulo": "Stars Royalty · Recorrido de la plataforma",
+    "inicio": 0,
+    "duracion": 21.708333333333332,
+    "capturas": [
+      "01-resumen",
+      "02-atletas",
+      "08-calendario"
+    ]
+  },
+  {
+    "titulo": "Resumen ejecutivo",
+    "inicio": 21.708,
+    "duracion": 22.375,
+    "capturas": [
+      "01-resumen",
+      "01-resumen"
+    ]
+  },
+  {
+    "titulo": "Atletas · Expediente integral 360°",
+    "inicio": 44.083,
+    "duracion": 27.541666666666668,
+    "capturas": [
+      "02-atletas",
+      "03-expediente"
+    ]
+  },
+  {
+    "titulo": "Operación deportiva",
+    "inicio": 71.625,
+    "duracion": 23.208333333333332,
+    "capturas": [
+      "04-categorias",
+      "05-equipos",
+      "07-asistencia",
+      "06-rendimiento"
+    ]
+  },
+  {
+    "titulo": "Calendario y competencias",
+    "inicio": 94.833,
+    "duracion": 26.125,
+    "capturas": [
+      "08-calendario",
+      "09-competencias"
+    ]
+  },
+  {
+    "titulo": "Cobranza, inventario y vestuario",
+    "inicio": 120.958,
+    "duracion": 28.75,
+    "capturas": [
+      "10-cobranza",
+      "11-flujo",
+      "12-inventario",
+      "13-vestuario"
+    ]
+  },
+  {
+    "titulo": "Familias, credenciales y reportes",
+    "inicio": 149.708,
+    "duracion": 22.666666666666668,
+    "capturas": [
+      "14-familias",
+      "15-credenciales",
+      "16-reportes"
+    ]
+  },
+  {
+    "titulo": "Configuración · Una academia conectada",
+    "inicio": 172.375,
+    "duracion": 26.75,
+    "capturas": [
+      "17-configuracion",
+      "18-sedes",
+      "01-resumen"
+    ]
+  }
+]

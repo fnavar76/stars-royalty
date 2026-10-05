@@ -1,0 +1,40 @@
+import { useState } from 'react'
+import { CalendarClock, PackageCheck, Plus, Search, Shirt } from 'lucide-react'
+import { hasPermission, request } from './api'
+import { ActionForm, ResourceState } from './uiShared'
+import { useResource } from './useResource'
+import { Modal } from './Modal'
+
+type Item={id:number;athlete:string;garment:string;size:string;status:string;expected_on:string|null;supplier:string;order_reference:string;notes:string;delivered_at:string|null;returned_at:string|null;charge?:{id:number;amount:number;status:string}}
+type Page={rows:Item[];total:number;page:number;size:number;stats:{total:number;pending:number;delivered:number;late:number}}
+const field=(f:FormData,key:string)=>String(f.get(key)??'')
+const money=(n:number)=>n.toLocaleString('es-MX',{style:'currency',currency:'MXN'})
+const send=(path:string,body:unknown,method='POST')=>request(path,{method,body:JSON.stringify(body)})
+export function WardrobeView({notify}:{notify:(message:string)=>void}) {
+  const [filter,setFilter]=useState({q:'',status:'all',page:1})
+  const [edit,setEdit]=useState<Item|null>(null)
+  const [deposit,setDeposit]=useState<Item|null>(null)
+  const [creating,setCreating]=useState(false)
+  const resource=useResource<Page|null>(`/api/wardrobe-tracking?page=${filter.page}&size=12&status=${filter.status}&q=${encodeURIComponent(filter.q)}`,null)
+  const athletes=useResource<{id:number;name:string}[]>('/api/athletes',[])
+  const refresh=async()=>{await resource.reload()}
+  const stats=resource.data?.stats
+  const labels:Record<string,string>={pending:'Pendiente',delivered:'Entregado',returned:'Devuelto'}
+  return <div className="ops-workspace">
+    <div className="ops-banner"><div><span className="ops-kicker"><Shirt size={16}/> Vestuario y entregas</span><h2>Cada prenda, lista a tiempo.</h2><p>Organiza pedidos, fechas comprometidas y entregas a tus atletas.</p></div><PackageCheck className="ops-banner-mark" size={56}/></div>
+    <section className="ops-summary-grid">{[['Asignaciones',stats?.total],['Por entregar',stats?.pending],['Entregadas',stats?.delivered],['Con retraso',stats?.late]].map(([label,value])=><div className="panel" key={label}><span className="ops-kicker">{label}</span><strong className="ops-big-number">{value??0}</strong></div>)}</section>
+    <div className="panel"><div className="ops-section-title"><div><h2>Seguimiento de pedidos</h2><p>Busca por atleta, prenda o referencia del proveedor.</p></div><button className="primary-button" onClick={()=>setCreating(true)}><Plus size={16}/> Asignar prenda</button></div>
+      <form className="ops-form" onSubmit={e=>{e.preventDefault();const f=new FormData(e.currentTarget);setFilter({q:field(f,'q'),status:field(f,'status'),page:1})}}><div className="ops-fields"><label><Search size={14}/> Buscar<input name="q" placeholder="Nombre, uniforme o pedido"/></label><label>Estado<select name="status"><option value="all">Todos</option><option value="pending">Pendientes</option><option value="late">Con retraso</option><option value="delivered">Entregados</option><option value="returned">Devueltos</option></select></label></div><button className="secondary-button">Aplicar filtros</button></form>
+    </div>
+    <ResourceState {...resource}/>
+    <div className="ops-card-grid">{resource.data?.rows.map(item=><article className="panel" key={item.id}><span className={`status-pill ${item.status==='delivered'?'success':'warning'}`}>{labels[item.status]}</span><h3>{item.athlete}</h3><strong>{item.garment}</strong><p>Talla {item.size||'sin definir'}</p><p><CalendarClock size={14}/> Entrega prevista: {item.expected_on??'Por confirmar'}</p><p className="ops-hint">{item.supplier||'Proveedor sin registrar'} · {item.order_reference||'Sin referencia'}</p>{item.notes&&<p className="ops-prewrap">{item.notes}</p>}{item.delivered_at&&<small>Entregado: {new Date(item.delivered_at).toLocaleString('es-MX')}</small>}{item.returned_at&&<p>Devuelto: {new Date(item.returned_at).toLocaleString('es-MX')}</p>}
+      {item.charge&&<div className="ops-help"><strong>{item.charge.status==='paid'?'Cargo liquidado':item.charge.status==='cancelled'?'Cargo cancelado':`Saldo: ${money(item.charge.amount)}`}</strong>{['pending','overdue'].includes(item.charge.status)&&<button className="text-button" onClick={()=>setDeposit(item)}>Registrar abono</button>}</div>}
+      <div className="ops-section-title" style={{marginTop:18}}><button className="secondary-button" onClick={()=>setEdit(item)}>Editar seguimiento</button><select aria-label={`Estado de prenda ${item.id}`} value={item.status} onChange={e=>void send(`/api/wardrobe/${item.id}/status`,{status:e.target.value},'PATCH').then(refresh).catch(e=>notify(e.message))}>{Object.entries(labels).map(([value,label])=><option key={value} value={value}>{label}</option>)}</select></div>
+    </article>)}</div>
+    {!resource.loading&&!resource.data?.rows.length&&<div className="panel empty-state">No hay prendas que coincidan con estos filtros.</div>}
+    {resource.data&&<div className="ops-section-title" style={{marginTop:20}}><button className="secondary-button" disabled={filter.page===1} onClick={()=>setFilter({...filter,page:filter.page-1})}>Anterior</button><span>{resource.data.total} asignaciones · Página {filter.page}</span><button className="secondary-button" disabled={filter.page*12>=resource.data.total} onClick={()=>setFilter({...filter,page:filter.page+1})}>Siguiente</button></div>}
+    {edit&&<Modal title="Seguimiento de vestuario" onClose={()=>setEdit(null)}><ActionForm notify={notify} onSave={async f=>{await send(`/api/wardrobe-tracking/${edit.id}`,{expectedOn:field(f,'date')||null,supplier:field(f,'supplier'),orderReference:field(f,'reference'),notes:field(f,'notes')},'PATCH');setEdit(null);await refresh()}}><label>Fecha comprometida<input name="date" type="date" defaultValue={edit.expected_on??''}/></label><label>Proveedor<input name="supplier" maxLength={120} defaultValue={edit.supplier??''}/></label><label>Referencia de pedido<input name="reference" maxLength={120} defaultValue={edit.order_reference??''}/></label><label>Notas<textarea name="notes" maxLength={2000} defaultValue={edit.notes??''}/></label></ActionForm></Modal>}
+    {deposit?.charge&&<Modal title="Registrar abono de vestuario" onClose={()=>setDeposit(null)}><p>{deposit.athlete} · Saldo {money(deposit.charge.amount)}</p><ActionForm notify={notify} onSave={async f=>{await send(`/api/payments/${deposit.charge!.id}/installments`,{amount:Number(field(f,'amount')),paymentMethod:field(f,'method')});setDeposit(null);await refresh()}}><label>Importe recibido<input name="amount" type="number" min="0.01" max={deposit.charge.amount} step="0.01" required/></label><label>Método<select name="method"><option>Efectivo</option><option>Transferencia</option><option>Tarjeta</option></select></label></ActionForm></Modal>}
+    {creating&&<Modal title="Asignar prenda" onClose={()=>setCreating(false)}><ActionForm notify={notify} onSave={async f=>{await send('/api/wardrobe',{athleteId:Number(field(f,'athlete')),garment:field(f,'garment'),size:field(f,'size'),expectedOn:field(f,'date')||undefined,supplier:field(f,'supplier'),orderReference:field(f,'reference'),createCharge:f.has('charge'),price:Number(field(f,'price'))});setCreating(false);await refresh()}}><label>Atleta<select name="athlete" required><option value="">Selecciona</option>{athletes.data.map(a=><option key={a.id} value={a.id}>{a.name}</option>)}</select></label><label>Prenda<input name="garment" required minLength={2} maxLength={120}/></label><label>Talla<input name="size" maxLength={40}/></label><label>Entrega prevista<input name="date" type="date"/></label><label>Proveedor<input name="supplier" maxLength={120}/></label><label>Referencia<input name="reference" maxLength={120}/></label>{hasPermission('finance')&&<><label><input type="checkbox" name="charge"/> Generar cargo</label><label>Importe total MXN<input name="price" type="number" min="0" step="0.01" defaultValue="0"/></label><p className="ops-hint">Los anticipos se registran como abonos al cargo después de guardar.</p></>}</ActionForm></Modal>}
+  </div>
+}

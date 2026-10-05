@@ -1,0 +1,42 @@
+[
+  {
+    "capitulo": "STARS ROYALTY",
+    "inicio": 0,
+    "duracion": 21.7
+  },
+  {
+    "capitulo": "RESUMEN EJECUTIVO",
+    "inicio": 21.7,
+    "duracion": 22.38
+  },
+  {
+    "capitulo": "EXPEDIENTE 360°",
+    "inicio": 44.08,
+    "duracion": 27.54
+  },
+  {
+    "capitulo": "OPERACIÓN DEPORTIVA",
+    "inicio": 71.62,
+    "duracion": 23.19
+  },
+  {
+    "capitulo": "CALENDARIO Y COMPETENCIAS",
+    "inicio": 94.81,
+    "duracion": 26.14
+  },
+  {
+    "capitulo": "FINANZAS Y ACTIVOS",
+    "inicio": 120.95,
+    "duracion": 28.74
+  },
+  {
+    "capitulo": "FAMILIAS Y REPORTES",
+    "inicio": 149.69,
+    "duracion": 22.66
+  },
+  {
+    "capitulo": "CONFIGURACIÓN",
+    "inicio": 172.35,
+    "duracion": 26.74
+  }
+]
